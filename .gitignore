@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project planning / assistant notes (local only, not for repo history)
+architecture.md
+phases.md
+logs.md
+CLAUDE.md
+changes.md
