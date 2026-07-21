@@ -16,6 +16,7 @@ class GuardrailSettings:
     max_iterations: int = 20
     duplicate_investigation_limit: int = 2
     runtime_failure_limit: int = 3
+    default_build_timeout_seconds: int = 300
     default_call_timeout_seconds: int = 60
     default_session_timeout_seconds: int = 600
 
@@ -25,6 +26,7 @@ def load_guardrail_settings() -> GuardrailSettings:
         max_iterations=_int_env("RAVEN_MAX_ITERATIONS", 20),
         duplicate_investigation_limit=_int_env("RAVEN_DUPLICATE_LIMIT", 2),
         runtime_failure_limit=_int_env("RAVEN_RUNTIME_FAILURE_LIMIT", 3),
+        default_build_timeout_seconds=_int_env("RAVEN_BUILD_TIMEOUT_SECONDS", 300),
         default_call_timeout_seconds=_int_env("RAVEN_CALL_TIMEOUT_SECONDS", 60),
         default_session_timeout_seconds=_int_env("RAVEN_SESSION_TIMEOUT_SECONDS", 600),
     )

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Optional
 
@@ -42,6 +43,9 @@ class RepositoryAnalyzer:
         if not (self.path / "gateway.py").is_file():
             missing.append("gateway.py")
 
+        if not (self.path / "sample_input.json").is_file():
+            missing.append("sample_input.json")
+
         if not (self.path / "Dockerfile").is_file() and not (self.path / "docker-compose.yml").is_file():
             missing.append("Dockerfile or docker-compose.yml")
 
@@ -78,11 +82,13 @@ class RepositoryAnalyzer:
         network_raw = raw.get("network") or {}
 
         runtime = RuntimeConfig(
-            docker_compose_file=runtime_raw.get("docker"),
+            docker_reference=runtime_raw.get("docker"),
             startup_command=runtime_raw.get("startup"),
+            build_timeout_seconds=int(runtime_raw.get("build_timeout_seconds", 300)),
             timeout_seconds=int(runtime_raw.get("timeout_seconds", 60)),
             session_timeout_seconds=int(runtime_raw.get("session_timeout_seconds", 600)),
             health_endpoint=health_raw.get("endpoint"),
+            health_port=int(health_raw.get("port", 8000)),
             test_command=tests_raw.get("command"),
             network_required=bool(network_raw.get("required", False)),
         )
@@ -103,3 +109,9 @@ class RepositoryAnalyzer:
 
     def detect_framework(self, metadata: RepositoryMetadata) -> Optional[str]:
         return metadata.framework
+
+    def load_input_schema(self) -> dict:
+        return json.loads((self.path / RAVEN_DIR / "input_schema.json").read_text(encoding="utf-8"))
+
+    def load_output_schema(self) -> dict:
+        return json.loads((self.path / RAVEN_DIR / "output_schema.json").read_text(encoding="utf-8"))

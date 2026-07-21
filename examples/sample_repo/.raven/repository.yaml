@@ -8,6 +8,7 @@ runtime:
 
 health:
   endpoint: /health
+  port: 8000
 
 tests:
   command: pytest

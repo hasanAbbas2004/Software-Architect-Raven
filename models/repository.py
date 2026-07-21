@@ -9,11 +9,13 @@ from typing import Optional
 class RuntimeConfig:
     """Parsed from .raven/repository.yaml's `runtime`/`health`/`tests`/`network` sections."""
 
-    docker_compose_file: Optional[str] = None
-    startup_command: Optional[str] = None
+    docker_reference: Optional[str] = None  # path to a Dockerfile or a docker-compose.yml
+    startup_command: Optional[str] = None  # human-readable hint only — never executed, see changes.md
+    build_timeout_seconds: int = 300
     timeout_seconds: int = 60
     session_timeout_seconds: int = 600
     health_endpoint: Optional[str] = None
+    health_port: int = 8000
     test_command: Optional[str] = None
     network_required: bool = False
 
