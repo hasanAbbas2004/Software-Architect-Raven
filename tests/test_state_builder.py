@@ -13,7 +13,7 @@ def test_build_initial_state_for_valid_repository(sample_repo_path: Path):
 
     assert state.repository_profile.contract_valid is True
     assert len(state.investigation_targets) == 3
-    assert state.observation_store == []
+    assert len(state.observation_store) == 0
     assert "Repository state initialized" in state.execution_logs
 
 

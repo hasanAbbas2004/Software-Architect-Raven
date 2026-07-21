@@ -5,20 +5,17 @@ from typing import Optional
 
 from models.repository import RepositoryMetadata, RepositoryProfile
 from models.target import InvestigationTarget
+from storage.observation_store import ObservationStore
 
 
 @dataclass
 class RepositoryState:
-    """Single source of truth for one investigation. Every agent reads and writes through this object.
-
-    `observation_store` is a plain list in Phase 1 — an empty placeholder. Phase 2 replaces it with
-    the real Observation Store component (storage/observation_store.py) per architecture.md's Shared State.
-    """
+    """Single source of truth for one investigation. Every agent reads and writes through this object."""
 
     repository_profile: RepositoryProfile
     repository_metadata: RepositoryMetadata
     investigation_targets: list[InvestigationTarget] = field(default_factory=list)
-    observation_store: list = field(default_factory=list)
+    observation_store: ObservationStore = field(default_factory=ObservationStore)
     runtime_metadata: dict = field(default_factory=dict)
     validated_findings: list = field(default_factory=list)
     execution_logs: list[str] = field(default_factory=list)
