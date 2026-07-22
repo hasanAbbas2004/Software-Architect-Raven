@@ -1,0 +1,45 @@
+{
+  "execution_logs": [
+    "Repository validated: C:\\Users\\AA\\Documents\\GitHub\\Software-Architect-Raven\\examples\\sample_repo",
+    "Framework detected: fastapi",
+    "Docker detected: True",
+    "Investigation targets loaded: 3",
+    "Repository state initialized",
+    "Investigator: Authentication -> no static evidence found",
+    "Investigator: Authentication -> no static evidence found",
+    "Investigator: Authentication -> no static evidence found",
+    "Validator: Authentication -> INSUFFICIENT_EVIDENCE (duplicate investigation limit reached)",
+    "Investigator: Database -> no static evidence found",
+    "Investigator: Database -> no static evidence found",
+    "Investigator: Database -> no static evidence found",
+    "Validator: Database -> INSUFFICIENT_EVIDENCE (duplicate investigation limit reached)",
+    "Investigator: API -> STATIC_VERIFIED (2 file(s))",
+    "Executor: container 'raven-sample_repo-83c7a955' started and healthy",
+    "Executor: test suite passed",
+    "Executor: API -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: API -> VALIDATED",
+    "Executor: container 'raven-sample_repo-83c7a955' stopped",
+    "Executor: image 'raven-sample_repo-83c7a955' removed"
+  ],
+  "observations": [
+    {
+      "category": "API",
+      "claim": "Static evidence for 'API' found in 2 file(s)",
+      "evidence": [
+        "app.py",
+        "tests/test_app.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "API",
+      "claim": "Runtime verification for 'API': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    }
+  ]
+}

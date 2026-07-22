@@ -1,0 +1,57 @@
+{
+  "name": "Test-repo2",
+  "path": "C:\\Users\\AA\\Documents\\GitHub\\Test-repo2",
+  "framework": "fastapi",
+  "contract_valid": true,
+  "investigation_signal": "COMPLETE",
+  "targets": [
+    {
+      "name": "Authentication",
+      "state": "VALIDATED",
+      "static_evidence_count": 12,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "Authorization",
+      "state": "VALIDATED",
+      "static_evidence_count": 5,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "Database",
+      "state": "VALIDATED",
+      "static_evidence_count": 13,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "API",
+      "state": "VALIDATED",
+      "static_evidence_count": 7,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "Caching",
+      "state": "VALIDATED",
+      "static_evidence_count": 5,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "Background Jobs",
+      "state": "VALIDATED",
+      "static_evidence_count": 4,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "Rate Limiting",
+      "state": "VALIDATED",
+      "static_evidence_count": 6,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "Business Logic",
+      "state": "VALIDATED",
+      "static_evidence_count": 9,
+      "runtime_evidence_count": 1
+    }
+  ]
+}

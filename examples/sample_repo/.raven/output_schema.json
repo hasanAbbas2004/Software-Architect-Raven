@@ -1,8 +1,17 @@
 {
     "type": "object",
     "properties": {
-        "status": { "type": "string" },
-        "output": { "type": "object" }
+        "status": {
+            "type": "string",
+            "enum": ["success", "failure", "error"]
+        },
+        "output": {
+            "type": "object",
+            "properties": {
+                "health_ok": { "type": "boolean" },
+                "greeting": { "type": ["string", "null"] }
+            }
+        }
     },
     "required": ["status", "output"]
 }

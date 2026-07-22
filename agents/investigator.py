@@ -33,7 +33,11 @@ class Investigator:
     """
 
     def __init__(self, repository_root: Path):
-        self.repository_root = Path(repository_root)
+        # Resolved to match tools.filesystem.iter_source_files()'s own resolution — otherwise a
+        # relative repository_root here (absolute paths always happened to work) breaks
+        # path.relative_to() below with "not in the subpath" once the CLI is invoked with a
+        # relative path.
+        self.repository_root = Path(repository_root).resolve()
 
     def investigate(self, state: RepositoryState, target: InvestigationTarget) -> InvestigationTarget:
         if target.is_terminal or target.state in ALREADY_INVESTIGATED_STATES:

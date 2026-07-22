@@ -82,7 +82,12 @@ def collect_logs(container_name: str, tail: int = 200, timeout_seconds: int = 10
 
 def _run(command: list[str], timeout_seconds: int) -> ExecResult:
     try:
-        completed = subprocess.run(command, capture_output=True, text=True, timeout=timeout_seconds)
+        # Explicit UTF-8: Docker/pip build output can contain bytes outside the default Windows
+        # codepage (cp1252), which otherwise raises UnicodeDecodeError deep in subprocess's
+        # background reader thread — errors="replace" keeps a failed decode from crashing the run.
+        completed = subprocess.run(
+            command, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout_seconds
+        )
     except subprocess.TimeoutExpired as exc:
         raise DockerError(f"command timed out after {timeout_seconds}s: {' '.join(command)}") from exc
 

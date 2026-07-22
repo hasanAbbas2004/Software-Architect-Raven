@@ -34,7 +34,7 @@ class Executor:
     """
 
     def __init__(self, repository_root: Path, runtime_failure_limit: int):
-        self.repository_root = Path(repository_root)
+        self.repository_root = Path(repository_root).resolve()
         self.runtime_failure_limit = runtime_failure_limit
         self._output_schema = RepositoryAnalyzer(self.repository_root).load_output_schema()
 

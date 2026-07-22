@@ -92,6 +92,24 @@ def test_investigate_finds_rate_limiting_evidence(repo: Path):
     assert target.static_evidence == ["app/rate_limit.py"]
 
 
+def test_investigate_works_with_a_relative_repository_root(repo: Path, monkeypatch):
+    # Regression test: Investigator used to store repository_root unresolved, while
+    # tools.filesystem.iter_source_files() always resolves — a relative root (as opposed to the
+    # absolute paths every earlier manual test happened to use) crashed relative_to() with
+    # "not in the subpath", first caught running `raven report` against a relative CLI path.
+    monkeypatch.chdir(repo.parent)
+    relative_root = Path(repo.name)
+
+    target = InvestigationTarget(name="Authentication")
+    state = _state(repo, target)
+    investigator = Investigator(relative_root)
+
+    investigator.investigate(state, target)
+
+    assert target.state == TargetState.STATIC_VERIFIED
+    assert target.static_evidence == ["app/auth.py"]
+
+
 def test_investigate_skips_already_resolved_targets(repo: Path):
     target = InvestigationTarget(name="Authentication", state=TargetState.STATIC_VERIFIED)
     state = _state(repo, target)

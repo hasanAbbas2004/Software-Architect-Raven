@@ -1,4 +1,10 @@
 {
     "type": "object",
-    "properties": {}
+    "properties": {
+        "action": {
+            "type": "string",
+            "enum": ["smoke_test"]
+        }
+    },
+    "required": ["action"]
 }

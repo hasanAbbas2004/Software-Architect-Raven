@@ -11,11 +11,14 @@ from config.settings import load_guardrail_settings
 from core.exceptions import RepositoryValidationError
 from models.target import TargetState
 from orchestrator import run_investigation
+from reports.report_generator import ReportGenerator
 from runtime.docker import DockerError
 from runtime.gateway_runner import GatewayOutputError
 from state.builder import build_initial_state
 from state.state import RepositoryState
 from validation.termination import evaluate
+
+DEFAULT_OUTPUT_DIR = "output"
 
 
 def _analyze(path: str) -> int:
@@ -128,6 +131,34 @@ def _run(path: str) -> int:
     return 0
 
 
+def _report(path: str, output_dir: str) -> int:
+    try:
+        state = build_initial_state(Path(path))
+    except RepositoryValidationError as exc:
+        print("Repository validation failed:")
+        for item in exc.missing:
+            print(f"  - missing {item}")
+        return 1
+    print("Repository Validated")
+
+    print("Planning...")
+    print("Investigating...")
+    print("Executing...")
+    print("Validating...")
+    state = run_investigation(Path(path), state=state)
+
+    print("Generating Reports...")
+    repo_output_dir = Path(output_dir) / state.repository_profile.name
+    ReportGenerator(repo_output_dir).generate(state)
+
+    print("Complete")
+    print()
+    _print_target_summary(state)
+    print(f"Investigation signal: {evaluate(state).value}")
+    print(f"Reports written to: {repo_output_dir}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="raven", description="RAVEN repository investigation CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -148,6 +179,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     run_parser.add_argument("path", help="Path to the target repository")
 
+    report_parser = subparsers.add_parser(
+        "report", help="Run the full investigation and generate the final reports"
+    )
+    report_parser.add_argument("path", help="Path to the target repository")
+    report_parser.add_argument(
+        "--output", default=DEFAULT_OUTPUT_DIR, help=f"Base output directory (default: {DEFAULT_OUTPUT_DIR})"
+    )
+
     return parser
 
 
@@ -163,6 +202,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         return _verify(args.path)
     if args.command == "run":
         return _run(args.path)
+    if args.command == "report":
+        return _report(args.path, args.output)
 
     parser.print_help()
     return 1

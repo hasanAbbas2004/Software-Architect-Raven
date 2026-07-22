@@ -1,0 +1,27 @@
+{
+  "name": "sample_repo",
+  "path": "C:\\Users\\AA\\Documents\\GitHub\\Software-Architect-Raven\\examples\\sample_repo",
+  "framework": "fastapi",
+  "contract_valid": true,
+  "investigation_signal": "COMPLETE",
+  "targets": [
+    {
+      "name": "Authentication",
+      "state": "INSUFFICIENT_EVIDENCE",
+      "static_evidence_count": 0,
+      "runtime_evidence_count": 0
+    },
+    {
+      "name": "Database",
+      "state": "INSUFFICIENT_EVIDENCE",
+      "static_evidence_count": 0,
+      "runtime_evidence_count": 0
+    },
+    {
+      "name": "API",
+      "state": "VALIDATED",
+      "static_evidence_count": 2,
+      "runtime_evidence_count": 1
+    }
+  ]
+}

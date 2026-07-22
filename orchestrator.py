@@ -17,14 +17,21 @@ from validation.guardrails import GuardrailTracker
 from validation.termination import InvestigationSignal, evaluate
 
 
-def run_investigation(repository_path: Path, guardrails: Optional[GuardrailSettings] = None) -> RepositoryState:
+def run_investigation(
+    repository_path: Path,
+    guardrails: Optional[GuardrailSettings] = None,
+    state: Optional[RepositoryState] = None,
+) -> RepositoryState:
     """The full autonomous loop: Planner picks a target, its current state determines which agent
     acts on it next, repeat until every target reaches a terminal state or a guardrail cuts the
     loop short. See architecture.md's Investigation Lifecycle.
+
+    Pass an already-built `state` (e.g. from `state.builder.build_initial_state`) to avoid
+    re-scanning the repository when the caller already validated it.
     """
 
     guardrails = guardrails or load_guardrail_settings()
-    state = build_initial_state(repository_path)
+    state = state or build_initial_state(repository_path)
 
     planner = Planner()
     investigator = Investigator(repository_path)

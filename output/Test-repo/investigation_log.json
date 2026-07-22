@@ -1,0 +1,172 @@
+{
+  "execution_logs": [
+    "Repository validated: C:\\Users\\AA\\Documents\\GitHub\\Test-repo",
+    "Framework detected: fastapi",
+    "Docker detected: True",
+    "Investigation targets loaded: 6",
+    "Repository state initialized",
+    "Investigator: Authentication -> STATIC_VERIFIED (10 file(s))",
+    "Executor: container 'raven-test-repo-625c1b1a' started and healthy",
+    "Executor: test suite passed",
+    "Executor: Authentication -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Authentication -> VALIDATED",
+    "Investigator: Database -> STATIC_VERIFIED (11 file(s))",
+    "Executor: Database -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Database -> VALIDATED",
+    "Investigator: API -> STATIC_VERIFIED (5 file(s))",
+    "Executor: API -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: API -> VALIDATED",
+    "Investigator: Caching -> STATIC_VERIFIED (5 file(s))",
+    "Executor: Caching -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Caching -> VALIDATED",
+    "Investigator: Background Jobs -> STATIC_VERIFIED (3 file(s))",
+    "Executor: Background Jobs -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Background Jobs -> VALIDATED",
+    "Investigator: Business Logic -> STATIC_VERIFIED (3 file(s))",
+    "Executor: Business Logic -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Business Logic -> VALIDATED",
+    "Executor: container 'raven-test-repo-625c1b1a' stopped",
+    "Executor: image 'raven-test-repo-625c1b1a' removed"
+  ],
+  "observations": [
+    {
+      "category": "Authentication",
+      "claim": "Static evidence for 'Authentication' found in 10 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/schemas.py",
+        "app/security.py",
+        "gateway.py",
+        "tests/test_auth.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Authentication",
+      "claim": "Runtime verification for 'Authentication': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Database",
+      "claim": "Static evidence for 'Database' found in 11 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/database.py",
+        "app/dependencies.py",
+        "app/jobs.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/routers/tasks.py",
+        "app/schemas.py",
+        "app/services/task_service.py",
+        "tests/conftest.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Database",
+      "claim": "Runtime verification for 'Database': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "API",
+      "claim": "Static evidence for 'API' found in 5 file(s)",
+      "evidence": [
+        "app/dependencies.py",
+        "app/main.py",
+        "app/routers/auth.py",
+        "app/routers/tasks.py",
+        "tests/conftest.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "API",
+      "claim": "Runtime verification for 'API': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Caching",
+      "claim": "Static evidence for 'Caching' found in 5 file(s)",
+      "evidence": [
+        "app/cache.py",
+        "app/config.py",
+        "app/services/task_service.py",
+        "tests/conftest.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Caching",
+      "claim": "Runtime verification for 'Caching': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Background Jobs",
+      "claim": "Static evidence for 'Background Jobs' found in 3 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/jobs.py",
+        "app/main.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Background Jobs",
+      "claim": "Runtime verification for 'Background Jobs': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Business Logic",
+      "claim": "Static evidence for 'Business Logic' found in 3 file(s)",
+      "evidence": [
+        "app/routers/tasks.py",
+        "app/services/task_service.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Business Logic",
+      "claim": "Runtime verification for 'Business Logic': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    }
+  ]
+}
