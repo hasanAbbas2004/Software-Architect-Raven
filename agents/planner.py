@@ -25,5 +25,6 @@ class Planner:
     def next_task(self, state: RepositoryState) -> Optional[InvestigationTarget]:
         for target in state.investigation_targets:
             if target.state not in TERMINAL_STATES:
+                state.log(f"Planner: selected {target.name} (state={target.state.value}, priority-order)")
                 return target
         return None

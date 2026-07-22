@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 from typing import Optional
 
+from dotenv import load_dotenv
+
 from agents.executor import Executor, RuntimeFailureLimitExceeded, SessionLifetimeExceeded
 from agents.investigator import Investigator
 from agents.planner import Planner
@@ -20,6 +22,8 @@ from state.state import RepositoryState
 from validation.termination import evaluate
 
 DEFAULT_OUTPUT_DIR = "output"
+
+load_dotenv()
 
 
 def _analyze(path: str) -> int:

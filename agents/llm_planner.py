@@ -57,6 +57,7 @@ class LLMPlanner:
         if not open_targets:
             return None
         if len(open_targets) == 1:
+            state.log(f"Planner: selected {open_targets[0].name} (only open target, skipped LLM call)")
             return open_targets[0]  # no real choice to make — skip the API call
 
         target_summary = [
@@ -88,18 +89,29 @@ class LLMPlanner:
                     },
                 ],
             )
-        except openai.APIError:
+        except openai.APIError as exc:
+            state.log(f"Planner: LLM call failed ({exc}); falling back to {open_targets[0].name}")
             return open_targets[0]
 
         choice = response.choices[0]
         if choice.finish_reason == "content_filter" or choice.message.refusal:
+            state.log(f"Planner: LLM declined to plan; falling back to {open_targets[0].name}")
             return open_targets[0]
 
         text = choice.message.content or ""
         try:
             decision = json.loads(text)
         except json.JSONDecodeError:
+            state.log(f"Planner: LLM response was not valid JSON; falling back to {open_targets[0].name}")
             return open_targets[0]
 
         target = state.get_target(decision.get("next_target") or "")
-        return target if target in open_targets else open_targets[0]
+        if target not in open_targets:
+            state.log(
+                f"Planner: LLM chose an invalid target ({decision.get('next_target')!r}); "
+                f"falling back to {open_targets[0].name}"
+            )
+            return open_targets[0]
+
+        state.log(f"Planner: selected {target.name} — {decision.get('reasoning', '')}")
+        return target

@@ -1,0 +1,45 @@
+{
+  "name": "Test-repo",
+  "path": "C:\\Users\\AA\\Documents\\GitHub\\Test-repo",
+  "framework": "fastapi",
+  "contract_valid": true,
+  "investigation_signal": "COMPLETE",
+  "targets": [
+    {
+      "name": "Authentication",
+      "state": "INSUFFICIENT_EVIDENCE",
+      "static_evidence_count": 5,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "Database",
+      "state": "INSUFFICIENT_EVIDENCE",
+      "static_evidence_count": 0,
+      "runtime_evidence_count": 0
+    },
+    {
+      "name": "API",
+      "state": "INSUFFICIENT_EVIDENCE",
+      "static_evidence_count": 5,
+      "runtime_evidence_count": 1
+    },
+    {
+      "name": "Caching",
+      "state": "INSUFFICIENT_EVIDENCE",
+      "static_evidence_count": 0,
+      "runtime_evidence_count": 0
+    },
+    {
+      "name": "Background Jobs",
+      "state": "INSUFFICIENT_EVIDENCE",
+      "static_evidence_count": 0,
+      "runtime_evidence_count": 0
+    },
+    {
+      "name": "Business Logic",
+      "state": "INSUFFICIENT_EVIDENCE",
+      "static_evidence_count": 4,
+      "runtime_evidence_count": 1
+    }
+  ]
+}
