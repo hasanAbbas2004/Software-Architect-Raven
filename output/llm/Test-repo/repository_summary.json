@@ -8,14 +8,14 @@
     {
       "name": "Authentication",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 5,
+      "static_evidence_count": 4,
       "runtime_evidence_count": 1
     },
     {
       "name": "Database",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 0,
-      "runtime_evidence_count": 0
+      "static_evidence_count": 7,
+      "runtime_evidence_count": 1
     },
     {
       "name": "API",
@@ -26,8 +26,8 @@
     {
       "name": "Caching",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 0,
-      "runtime_evidence_count": 0
+      "static_evidence_count": 5,
+      "runtime_evidence_count": 1
     },
     {
       "name": "Background Jobs",
@@ -38,8 +38,8 @@
     {
       "name": "Business Logic",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 4,
-      "runtime_evidence_count": 1
+      "static_evidence_count": 0,
+      "runtime_evidence_count": 0
     }
   ]
 }

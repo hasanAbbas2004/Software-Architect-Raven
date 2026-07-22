@@ -199,7 +199,11 @@ class LLMInvestigator:
                 return args.get("claim", ""), args.get("evidence", [])
 
             if not tool_calls:
-                break  # model stopped without calling a tool or submitting — treat as no evidence
+                # The model concluded in plain text instead of calling submit_findings — this
+                # happens often enough in practice that discarding the findings here would throw
+                # away real evidence it already gathered. Force one final call that must go
+                # through submit_findings rather than treating this as "no evidence found".
+                return self._force_submit(messages, message.content)
 
             messages.append(
                 {
@@ -222,6 +226,27 @@ class LLMInvestigator:
                 messages.append({"role": "tool", "tool_call_id": tc.id, "content": result})
 
         return "Investigation did not conclude within the tool-call budget.", []
+
+    def _force_submit(self, messages: list, last_reply: Optional[str]) -> tuple[str, list]:
+        messages.append({"role": "assistant", "content": last_reply})
+        messages.append(
+            {
+                "role": "user",
+                "content": "Call submit_findings now with your conclusion and the evidence paths you found.",
+            }
+        )
+        response = self.client.chat.completions.create(
+            model=self.settings.model,
+            max_completion_tokens=self.settings.max_tokens,
+            tools=TOOLS,
+            tool_choice={"type": "function", "function": {"name": "submit_findings"}},
+            messages=messages,
+        )
+        tool_calls = response.choices[0].message.tool_calls or []
+        if not tool_calls:
+            return "Investigation did not conclude within the tool-call budget.", []
+        args = json.loads(tool_calls[0].function.arguments)
+        return args.get("claim", ""), args.get("evidence", [])
 
     def _execute_tool(self, name: str, tool_input: dict) -> str:
         try:

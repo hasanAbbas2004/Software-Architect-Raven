@@ -173,6 +173,50 @@ def test_investigate_stops_after_max_tool_rounds_without_submitting(repo: Path, 
     assert fake_client.chat.completions.calls == MAX_TOOL_ROUNDS
 
 
+def test_investigate_forces_submit_when_model_concludes_in_prose(repo: Path, monkeypatch):
+    # Reproduces a real observed failure mode: the model gathers real evidence, then replies
+    # with a plain-text conclusion instead of calling submit_findings. The loop must force one
+    # more call requiring submit_findings rather than discarding the findings as "no evidence".
+    target = InvestigationTarget(name="Authentication")
+    state = _state(repo, target)
+
+    responses = [
+        _FakeResponse(tool_calls=[_FakeToolCall("search_repository", {"pattern": "jwt"}, "t1")]),
+        _FakeResponse(content="I found JWT-based authentication in app/auth.py.", finish_reason="stop"),
+        _FakeResponse(
+            tool_calls=[
+                _FakeToolCall("submit_findings", {"claim": "uses jwt", "evidence": ["app/auth.py"]}, "t2")
+            ]
+        ),
+    ]
+    fake_client = _FakeClient(responses)
+    monkeypatch.setattr(llm_investigator_module, "OpenAI", lambda: fake_client)
+
+    LLMInvestigator(repo).investigate(state, target)
+
+    assert target.state == TargetState.STATIC_VERIFIED
+    assert target.static_evidence == ["app/auth.py"]
+    assert fake_client.chat.completions.calls == 3
+
+
+def test_investigate_gives_up_when_forced_submit_also_yields_no_tool_call(repo: Path, monkeypatch):
+    target = InvestigationTarget(name="Authentication")
+    state = _state(repo, target)
+
+    responses = [
+        _FakeResponse(content="Still not sure what to conclude.", finish_reason="stop"),
+        _FakeResponse(content="I really don't know.", finish_reason="stop"),
+    ]
+    fake_client = _FakeClient(responses)
+    monkeypatch.setattr(llm_investigator_module, "OpenAI", lambda: fake_client)
+
+    LLMInvestigator(repo).investigate(state, target)
+
+    assert target.state == TargetState.INVESTIGATING
+    assert len(state.observation_store) == 0
+    assert fake_client.chat.completions.calls == 2
+
+
 def test_investigate_handles_api_error_gracefully(repo: Path, monkeypatch):
     target = InvestigationTarget(name="Authentication")
     state = _state(repo, target)
