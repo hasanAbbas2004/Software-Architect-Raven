@@ -46,12 +46,14 @@ Each command is a progressively more complete slice of the pipeline — useful f
 
 ### `--llm` mode
 
-`raven run` and `raven report` both accept `--llm`, which swaps the deterministic Planner/Investigator/Validator for real Claude-backed reasoning (`agents/llm_planner.py`, `agents/llm_investigator.py`, `agents/llm_validator.py`) — same interfaces, real tool use for the Investigator (it actually reads and searches the repository rather than keyword-grepping), real structured judgment for the Planner and Validator. Requires `ANTHROPIC_API_KEY` set in your own environment (the Anthropic SDK resolves it directly — RAVEN never reads or stores it itself):
+`raven run` and `raven report` both accept `--llm`, which swaps the deterministic Planner/Investigator/Validator for real OpenAI-backed reasoning (`agents/llm_planner.py`, `agents/llm_investigator.py`, `agents/llm_validator.py`) — same interfaces, real tool use for the Investigator (it actually reads and searches the repository rather than keyword-grepping), real structured judgment for the Planner and Validator. Requires `OPENAI_API_KEY` set in your own environment (the OpenAI SDK resolves it directly — RAVEN never reads or stores it itself):
 
 ```bash
-export ANTHROPIC_API_KEY=sk-ant-...
+export OPENAI_API_KEY=sk-...
 python main.py report examples/sample_repo --llm
 ```
+
+The model defaults to `gpt-4o` and is configurable via `RAVEN_LLM_MODEL` — override it to whatever model you have access to.
 
 Without `--llm`, everything runs on the deterministic stand-ins — no API key needed, no network calls, fully reproducible, which is also what the whole test suite runs against.
 
@@ -121,7 +123,7 @@ PENDING → INVESTIGATING → STATIC_VERIFIED → RUNTIME_VERIFIED → VALIDATED
 
 **Guardrails** (all configurable via environment variables, see `config/settings.py`): a maximum iteration budget for the whole investigation, a per-target duplicate-investigation limit, a runtime failure limit, a Docker build timeout, a per-call timeout, and a total session lifetime for the one container an investigation runs. Any of these being hit cascades remaining open targets to `INSUFFICIENT_EVIDENCE` rather than leaving the loop to hang.
 
-**Deterministic by default, real reasoning on request:** the Planner, Investigator, and Validator each have two implementations behind the same interface — a deterministic stand-in (priority-order target selection, keyword-based evidence search, structural evidence checks; no API key, no network, what the test suite runs against) and a real Claude-backed one (`agents/llm_*.py`, opt in with `--llm`; see above). Both were built deliberately in that order: prove the pipeline, guardrails, and Docker integration with the cheap deterministic version first, then swap in real reasoning behind the same interface. The Executor and Repository Analyzer are deterministic by design permanently — they do Docker/filesystem I/O, not reasoning.
+**Deterministic by default, real reasoning on request:** the Planner, Investigator, and Validator each have two implementations behind the same interface — a deterministic stand-in (priority-order target selection, keyword-based evidence search, structural evidence checks; no API key, no network, what the test suite runs against) and a real OpenAI-backed one (`agents/llm_*.py`, opt in with `--llm`; see above). Both were built deliberately in that order: prove the pipeline, guardrails, and Docker integration with the cheap deterministic version first, then swap in real reasoning behind the same interface. The Executor and Repository Analyzer are deterministic by design permanently — they do Docker/filesystem I/O, not reasoning.
 
 ## Testing
 
@@ -129,7 +131,7 @@ PENDING → INVESTIGATING → STATIC_VERIFIED → RUNTIME_VERIFIED → VALIDATED
 pytest
 ```
 
-The test suite (`tests/`) covers the Repository Analyzer, Planner, Investigator, Executor (against a mocked Docker layer), Validator, guardrails, the orchestration loop, and the Report Generator — including the LLM-backed variants of Planner/Investigator/Validator, tested against a mocked `anthropic.Anthropic` client. It does not require Docker or an `ANTHROPIC_API_KEY` to run — only manual end-to-end verification against real repositories (with or without `--llm`) needs those.
+The test suite (`tests/`) covers the Repository Analyzer, Planner, Investigator, Executor (against a mocked Docker layer), Validator, guardrails, the orchestration loop, and the Report Generator — including the LLM-backed variants of Planner/Investigator/Validator, tested against a mocked `openai.OpenAI` client. It does not require Docker or an `OPENAI_API_KEY` to run — only manual end-to-end verification against real repositories (with or without `--llm`) needs those.
 
 ## Contributing
 
