@@ -36,6 +36,6 @@ tests/test_tasks.py ....                                                 [100%]
     from starlette.testclient import TestClient as TestClient  # noqa
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-========================= 8 passed, 1 warning in 0.75s =========================
+========================= 8 passed, 1 warning in 0.70s =========================
 
 ```

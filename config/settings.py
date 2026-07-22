@@ -30,3 +30,21 @@ def load_guardrail_settings() -> GuardrailSettings:
         default_call_timeout_seconds=_int_env("RAVEN_CALL_TIMEOUT_SECONDS", 60),
         default_session_timeout_seconds=_int_env("RAVEN_SESSION_TIMEOUT_SECONDS", 600),
     )
+
+
+@dataclass(frozen=True)
+class LLMSettings:
+    """Model configuration for the LLM-backed Planner/Investigator/Validator (--llm mode).
+    Requires OPENAI_API_KEY (or another SDK-recognized credential source) in the environment —
+    RAVEN does not read or store the key itself, the OpenAI SDK resolves it directly.
+    """
+
+    model: str = "gpt-4o"
+    max_tokens: int = 4096
+
+
+def load_llm_settings() -> LLMSettings:
+    return LLMSettings(
+        model=os.environ.get("RAVEN_LLM_MODEL", "gpt-4o"),
+        max_tokens=_int_env("RAVEN_LLM_MAX_TOKENS", 4096),
+    )

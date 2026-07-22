@@ -21,6 +21,9 @@ def run_investigation(
     repository_path: Path,
     guardrails: Optional[GuardrailSettings] = None,
     state: Optional[RepositoryState] = None,
+    planner: Optional[object] = None,
+    investigator: Optional[object] = None,
+    validator: Optional[object] = None,
 ) -> RepositoryState:
     """The full autonomous loop: Planner picks a target, its current state determines which agent
     acts on it next, repeat until every target reaches a terminal state or a guardrail cuts the
@@ -28,15 +31,21 @@ def run_investigation(
 
     Pass an already-built `state` (e.g. from `state.builder.build_initial_state`) to avoid
     re-scanning the repository when the caller already validated it.
+
+    `planner`/`investigator`/`validator` default to the deterministic stand-ins
+    (agents.planner.Planner, agents.investigator.Investigator, agents.validator.Validator) — pass
+    the LLM-backed equivalents (agents.llm_planner.LLMPlanner, etc.) to run in --llm mode. Both
+    implementations share the same method signatures by design, so the loop below doesn't change
+    based on which is passed in.
     """
 
     guardrails = guardrails or load_guardrail_settings()
     state = state or build_initial_state(repository_path)
 
-    planner = Planner()
-    investigator = Investigator(repository_path)
+    planner = planner or Planner()
+    investigator = investigator or Investigator(repository_path)
     executor = Executor(repository_path, runtime_failure_limit=guardrails.runtime_failure_limit)
-    validator = Validator()
+    validator = validator or Validator()
     tracker = GuardrailTracker(settings=guardrails)
 
     try:

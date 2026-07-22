@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -114,9 +115,31 @@ def _verify(path: str) -> int:
     return exit_code
 
 
-def _run(path: str) -> int:
+def _build_llm_agents(path: str):
+    from agents.llm_investigator import LLMInvestigator
+    from agents.llm_planner import LLMPlanner
+    from agents.llm_validator import LLMValidator
+
+    return LLMPlanner(), LLMInvestigator(Path(path)), LLMValidator()
+
+
+def _require_openai_key() -> bool:
+    if not os.environ.get("OPENAI_API_KEY"):
+        print("Error: --llm requires OPENAI_API_KEY to be set in your environment.")
+        return False
+    return True
+
+
+def _run(path: str, use_llm: bool = False) -> int:
+    planner = investigator = validator = None
+    if use_llm:
+        if not _require_openai_key():
+            return 1
+        print("Using LLM-backed Planner/Investigator/Validator (requires OPENAI_API_KEY)")
+        planner, investigator, validator = _build_llm_agents(path)
+
     try:
-        state = run_investigation(Path(path))
+        state = run_investigation(Path(path), planner=planner, investigator=investigator, validator=validator)
     except RepositoryValidationError as exc:
         print("Repository validation failed:")
         for item in exc.missing:
@@ -131,7 +154,7 @@ def _run(path: str) -> int:
     return 0
 
 
-def _report(path: str, output_dir: str) -> int:
+def _report(path: str, output_dir: str, use_llm: bool = False) -> int:
     try:
         state = build_initial_state(Path(path))
     except RepositoryValidationError as exc:
@@ -141,11 +164,18 @@ def _report(path: str, output_dir: str) -> int:
         return 1
     print("Repository Validated")
 
+    planner = investigator = validator = None
+    if use_llm:
+        if not _require_openai_key():
+            return 1
+        print("Using LLM-backed Planner/Investigator/Validator (requires OPENAI_API_KEY)")
+        planner, investigator, validator = _build_llm_agents(path)
+
     print("Planning...")
     print("Investigating...")
     print("Executing...")
     print("Validating...")
-    state = run_investigation(Path(path), state=state)
+    state = run_investigation(Path(path), state=state, planner=planner, investigator=investigator, validator=validator)
 
     print("Generating Reports...")
     repo_output_dir = Path(output_dir) / state.repository_profile.name
@@ -178,6 +208,9 @@ def build_parser() -> argparse.ArgumentParser:
         "run", help="Run the full autonomous investigation loop (Planner + Investigator + Executor + Validator)"
     )
     run_parser.add_argument("path", help="Path to the target repository")
+    run_parser.add_argument(
+        "--llm", action="store_true", help="Use LLM-backed Planner/Investigator/Validator instead of the deterministic stand-ins (requires OPENAI_API_KEY)"
+    )
 
     report_parser = subparsers.add_parser(
         "report", help="Run the full investigation and generate the final reports"
@@ -185,6 +218,9 @@ def build_parser() -> argparse.ArgumentParser:
     report_parser.add_argument("path", help="Path to the target repository")
     report_parser.add_argument(
         "--output", default=DEFAULT_OUTPUT_DIR, help=f"Base output directory (default: {DEFAULT_OUTPUT_DIR})"
+    )
+    report_parser.add_argument(
+        "--llm", action="store_true", help="Use LLM-backed Planner/Investigator/Validator instead of the deterministic stand-ins (requires OPENAI_API_KEY)"
     )
 
     return parser
@@ -201,9 +237,9 @@ def main(argv: Optional[list[str]] = None) -> int:
     if args.command == "verify":
         return _verify(args.path)
     if args.command == "run":
-        return _run(args.path)
+        return _run(args.path, use_llm=args.llm)
     if args.command == "report":
-        return _report(args.path, args.output)
+        return _report(args.path, args.output, use_llm=args.llm)
 
     parser.print_help()
     return 1

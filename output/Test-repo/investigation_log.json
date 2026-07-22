@@ -6,7 +6,7 @@
     "Investigation targets loaded: 6",
     "Repository state initialized",
     "Investigator: Authentication -> STATIC_VERIFIED (10 file(s))",
-    "Executor: container 'raven-test-repo-625c1b1a' started and healthy",
+    "Executor: container 'raven-test-repo-87184045' started and healthy",
     "Executor: test suite passed",
     "Executor: Authentication -> RUNTIME_VERIFIED (gateway status=success)",
     "Validator: Authentication -> VALIDATED",
@@ -25,8 +25,8 @@
     "Investigator: Business Logic -> STATIC_VERIFIED (3 file(s))",
     "Executor: Business Logic -> RUNTIME_VERIFIED (gateway status=success)",
     "Validator: Business Logic -> VALIDATED",
-    "Executor: container 'raven-test-repo-625c1b1a' stopped",
-    "Executor: image 'raven-test-repo-625c1b1a' removed"
+    "Executor: container 'raven-test-repo-87184045' stopped",
+    "Executor: image 'raven-test-repo-87184045' removed"
   ],
   "observations": [
     {
