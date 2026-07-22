@@ -5,61 +5,60 @@
     "Docker detected: True",
     "Investigation targets loaded: 6",
     "Repository state initialized",
-    "Planner: selected Authentication \u2014 Authentication is a central component of most applications, especially in a web framework like FastAPI where securing endpoints and managing user identities is critical. Addressing authentication issues early helps ensure that security best practices are followed throughout the application. Additionally, authentication often integrates closely with other components such as API and database, making it a logical starting point for a deep and interconnected investigation.",
+    "Planner: selected Authentication \u2014 Authentication is a central component in any application, especially within the FastAPI framework which is often used for building APIs where secure user identity verification is pivotal. Starting with authentication ensures that any security vulnerabilities are addressed early on, which can significantly impact the overall security and integrity of the application. Additionally, authentication tends to be foundational, with implications for other components such as access control and data handling, making it a strategic starting point for investigation.",
     "Investigator: Authentication -> no static evidence found",
-    "Planner: selected Authentication \u2014 The 'Authentication' target is already in the 'INVESTIGATING' state, which means we have already begun work on it. To maximize efficiency and move towards a validated conclusion faster, it is prudent to continue with targets that are already in progress rather than starting new ones. Since authentication is also a central component of many applications, completing its investigation is both strategically important and timely.",
+    "Planner: selected Authentication \u2014 The \"Authentication\" target is currently in the \"INVESTIGATING\" state, making it the most advanced in its investigation phase compared to others. Prioritizing a target already underway ensures a quicker resolution and provides critical insights into the security aspects of the application, which are essential for the foundational functionality of any application, especially those operating within a framework like FastAPI. Completing this investigation will provide a verified foundation and potentially expose architecture-level insights that could guide the investigation of subsequent targets.",
     "Investigator: Authentication -> STATIC_VERIFIED (4 file(s), LLM-reasoned)",
-    "Planner: selected Authentication \u2014 The 'Authentication' target is already in the 'STATIC_VERIFIED' state, meaning it has undergone static analysis but still requires runtime verification to ensure its functionality in a live setting. Continuing with 'Authentication' is prioritized because completing its lifecycle will provide more definite assurance about this critical part of the architecture, especially important in applications where secure handling of identity and access is crucial. Other targets in the 'PENDING' state have not been investigated at all, and 'Authentication' is typically a core component in frameworks like FastAPI.",
-    "Executor: container 'raven-test-repo-97bad2dc' started and healthy",
+    "Planner: selected Authentication \u2014 Among the investigation targets, Authentication is already in the STATIC_VERIFIED state, which means it has progressed further in its investigation lifecycle compared to the others. Prioritizing Authentication will help fully verify its state with runtime evidence, potentially uncovering execution issues or vulnerabilities that were not detectable through static analysis alone. This is crucial for security-sensitive components like Authentication. By completing this target, we can provide a more complete and reliable assessment of the repository's security architecture.",
+    "Executor: container 'raven-test-repo-b3d14693' started and healthy",
     "Executor: test suite passed",
     "Executor: Authentication -> RUNTIME_VERIFIED (gateway status=success)",
-    "Planner: selected Authentication \u2014 The 'Authentication' target is currently in the 'RUNTIME_VERIFIED' state, which implies it is partway through its lifecycle and only requires additional runtime verification to be completed. Prioritizing it will likely lead to a fully validated target faster than starting a new investigation on a 'PENDING' target. Since authentication is central to the security and functionality of most applications, completing its verification is particularly valuable.",
-    "Validator: Authentication -> INSUFFICIENT_EVIDENCE (While there is substantial static evidence indicating the presence and implementation of authentication features in the repository, and there is a successful runtime execution of 'gateway.py', there is no direct runtime verification of the authentication functionalities, such as OAuth2PasswordBearer scheme or JWT token management. The runtime evidence provided does not specifically confirm that the authentication functionalities outlined in the static analysis (like token verification or hashing) were executed and verified. Thus, the evidence is insufficient to confidently validate authentication capabilities.)",
-    "Planner: selected Database \u2014 Given that all investigation targets are in the PENDING state and none have any evidence collected, it's ideal to start with the most central component to the application architecture. In a FastAPI-based system, the Database component is often fundamental as it typically holds the application's persistent state and interacts closely with other components like the API. Ensuring the database is correctly set up and secure can prevent a host of potential issues down the line, making it a priority target for investigation.",
+    "Planner: selected Authentication \u2014 The 'Authentication' target is in the 'RUNTIME_VERIFIED' state, which means it is already partway through its investigation lifecycle. Advancing this target will likely lead to a faster completion and validation compared to starting a new one. Completing 'Authentication' is also crucial, as it is a central component of many applications' architectures, particularly when using a framework like FastAPI, which often involves secure user management.",
+    "Validator: Authentication -> INSUFFICIENT_EVIDENCE (The static evidence suggests a comprehensive authentication system, and runtime evidence shows a successful execution of 'gateway.py'. However, the static evidence claims are marked as 'runtime_verified: false'. There is no runtime verification explicitly for authentication functionality like user registration and login routes or password hashing. The gateway's success does not clearly correlate with the authentication functionality as described. Therefore, there's insufficient evidence that the authentication system performs as expected during runtime.)",
+    "Planner: selected Database \u2014 The Database is a critical component of any application, particularly in a framework like FastAPI where handling and validating data are paramount. Ensuring that the Database layer is secure and correctly implemented is foundational to the proper functioning of the application as it often underpins multiple other components such as the API, Business Logic, and Caching. Starting the investigation with the Database can help preemptively identify and resolve any fundamental data handling issues. As all targets are in the PENDING state with no evidence yet collected, focusing on the Database is a strategic decision to establish a reliable base for the rest of the system.",
     "Investigator: Database -> STATIC_VERIFIED (7 file(s), LLM-reasoned)",
-    "Planner: selected Database \u2014 The 'Database' target is currently in the 'STATIC_VERIFIED' state, which means it has already undergone static analysis but has not yet been verified at runtime. Completing its lifecycle by proceeding with runtime verification is crucial because a verified database system is central to the operation and reliability of the application, especially in frameworks like FastAPI where efficient data handling and integrity are key. This prioritization ensures the foundational components of the system are robust, before moving on to other pending targets.",
+    "Planner: selected Database \u2014 The Database is in a \"STATIC_VERIFIED\" state, meaning it has had static analysis performed but lacks runtime verification. By advancing it to runtime verification, we complete its lifecycle faster, providing a more comprehensive understanding of its functioning within the system. This is typically more valuable than starting a new investigation from scratch, especially since the database is a central component of most applications, influencing data integrity and performance.",
     "Executor: Database -> RUNTIME_VERIFIED (gateway status=success)",
-    "Planner: selected Database \u2014 The 'Database' target is currently in the 'RUNTIME_VERIFIED' state, which indicates that it is partway through its lifecycle. Completing this investigation will provide validated insights faster than starting fresh on a new target. Additionally, the database is a central component of any application, making it a high-priority target for ensuring stability and correctness.",
-    "Validator: Database -> INSUFFICIENT_EVIDENCE (While there is static evidence indicating the presence of a database setup using SQLAlchemy, the runtime evidence does not specifically verify the operation or interaction with the database components. The runtime execution (`gateway.py --input sample_input.json`) returned a successful status, but it is unclear if this tested the database functionality, as it does not directly correspond to database operations or interactions mentioned in the static evidence. Therefore, the evidence is insufficient to validate the database functionality.)",
-    "Planner: selected API \u2014 The 'API' target is the most central component in a FastAPI application, as FastAPI is primarily designed for building APIs. Ensuring the API is functioning correctly and securely is critical to the integrity and performance of the application. Therefore, investigating the 'API' target first is the most valuable use of resources, given it is pivotal to the application\u2019s architecture.",
+    "Planner: selected Database \u2014 The Database target is currently in the RUNTIME_VERIFIED state, indicating it has undergone extensive static verification and has some runtime verification. Since this target is not yet fully completed and the database is central to most applications, completing its verification would provide significant architectural assurance. Continuing to investigate the Database target will be more valuable than starting on new targets, ensuring that any remaining runtime issues are addressed promptly and we reach a validated completion for this important component.",
+    "Validator: Database -> INSUFFICIENT_EVIDENCE (The static evidence indicates that the repository is structured to use SQLAlchemy for database management, with various files dedicated to configuration, models, and testing. However, while there is a successful runtime execution for 'gateway.py', there is no specific confirmation that this execution actually tests the database interactions as described in the static evidence. The runtime evidence shows the application running successfully, but without specific details connecting this run to the database functionality described in the static observation, there is insufficient evidence to confirm the database operations are functioning as intended. Thus, the static and runtime findings do not clearly align on the database aspect, leading to insufficient evidence for validation.)",
+    "Planner: selected API \u2014 The API is often a central component in FastAPI-based applications as it defines how the application interacts with external systems and users. Investigating the API first can provide insights into the overall structure and functionality of the application, which can be critical for understanding and ensuring the reliability and security of the system as a whole. Since all targets are in PENDING state, starting with the API is likely to be the most valuable next step.",
     "Investigator: API -> no static evidence found",
-    "Planner: selected API \u2014 The API target is already in the INVESTIGATING state, which indicates that work has begun to explore and identify issues related to this component. Continuing with the API investigation is prudent because it is a central part of the framework, and completing it will provide valuable insights and validations sooner than starting a new target from scratch. Focusing on finishing the investigations that have already started ensures efficient use of resources and time.",
-    "Investigator: API -> STATIC_VERIFIED (5 file(s), LLM-reasoned)",
-    "Planner: selected API \u2014 The 'API' target has already been partially investigated and is in the STATIC_VERIFIED state. To advance the investigation more efficiently, it is beneficial to move this target to completion by verifying it at runtime, especially since an API is central to a FastAPI framework. Completing investigations for central components ensures a robust foundation for other parts of the system to rely on. Compared to starting a fresh investigation on another PENDING target, continuing with 'API' will typically yield quicker and more impactful insights.",
-    "Executor: API -> RUNTIME_VERIFIED (gateway status=success)",
-    "Planner: selected API \u2014 The API target is crucial in a FastAPI framework as it forms the core of the application's interface. It is already in the RUNTIME_VERIFIED state, indicating that it has undergone static verification and some runtime evaluation, suggesting additional evidence is likely needed to reach a conclusion. Completing this investigation will provide a validated understanding of the system's critical API component, ensuring it functions as intended and is secure.",
-    "Validator: API -> INSUFFICIENT_EVIDENCE (The runtime evidence shows that 'gateway.py' executed successfully, but there is no direct correlation to verify the API implementation claims. The static evidence lists files suggesting an API using FastAPI, but there's no direct connection between these files and the executed 'gateway.py'. There must be runtime evidence directly verifying that the API functionalities, as claimed, are executed and confirmed as successful.)",
-    "Planner: selected Business Logic \u2014 There are currently three investigation targets that are all in the PENDING state, meaning none has been partially examined yet. In this case, I need to select the target that is most central to the architecture and essential to the application's core functionality. 'Business Logic' is likely to be more impactful and central to the overall operation of the application than 'Caching' or 'Background Jobs', as it directly involves core functionalities and decision-making processes in the application. Therefore, investigating 'Business Logic' first could provide significant insights into the application's core behavior and potential issues.",
+    "Planner: selected API \u2014 The 'API' target is already in the 'INVESTIGATING' state, which means it is partway through its lifecycle. It is more efficient to continue with this investigation to gather necessary insights and evidence, leading to a quicker resolution and validation. Starting a new target will not provide immediate advancements, whereas finishing the already started investigation will contribute to completing part of the repository's verification process.",
+    "Investigator: API -> no static evidence found",
+    "Planner: selected API \u2014 The 'API' target is currently marked as 'INVESTIGATING', meaning it is already partially through its investigation lifecycle. Continuing work on an active investigation has higher value as it can lead to quicker confirmations or discoveries regarding the target's integrity and functionality. Furthermore, since the repository is built on FastAPI, the API component is likely central to the overall architecture, making this target particularly important to understand and verify first.",
+    "Investigator: API -> no static evidence found",
+    "Validator: API -> INSUFFICIENT_EVIDENCE (duplicate investigation limit reached)",
+    "Planner: selected Business Logic \u2014 The 'Business Logic' target is crucial for the core functionality and architecture of the application. Since no investigations have been started yet, it is important to prioritize an area that directly impacts the application's core operations and performance. Investigating 'Business Logic' early helps ensure the most critical components are functioning correctly, which is essential for a robust and reliable application.",
     "Investigator: Business Logic -> no static evidence found",
-    "Planner: selected Business Logic \u2014 The 'Business Logic' target is currently in the 'INVESTIGATING' state, indicating that work has already begun on this target. To advance the investigation lifecycle effectively and efficiently, it is preferable to finish targets that are already in progress. This approach could potentially lead to a validated result more quickly than starting a new target.",
-    "Investigator: Business Logic -> no static evidence found",
-    "Planner: selected Business Logic \u2014 The 'Business Logic' investigation target is currently in the 'INVESTIGATING' state, meaning it is partway through its lifecycle. It is generally more efficient and valuable to continue with this target to reach a validated conclusion, rather than starting new investigations on 'Caching' or 'Background Jobs', which are both in the PENDING state. Additionally, understanding and verifying the business logic is central to the application's functionality and architecture, making it a priority.",
-    "Investigator: Business Logic -> no static evidence found",
-    "Validator: Business Logic -> INSUFFICIENT_EVIDENCE (duplicate investigation limit reached)",
-    "Planner: selected Caching \u2014 Both 'Caching' and 'Background Jobs' are in the PENDING state and there is no collected evidence for either target. Between the two, 'Caching' is generally more central to the architecture of an application built on a framework like FastAPI, as it directly affects performance and scalability. Efficient caching strategies can significantly enhance response times and reduce server loads, making it a crucial aspect of many applications, especially those handling a high number of requests. Therefore, focusing on 'Caching' first could provide more immediate and impactful insights for the optimization and overall performance of the application.",
-    "Investigator: Caching -> STATIC_VERIFIED (5 file(s), LLM-reasoned)",
-    "Planner: selected Caching \u2014 The 'Caching' target is already in the 'STATIC_VERIFIED' state, meaning static investigations have been completed but runtime investigations are pending. Advancing this target to 'RUNTIME_VERIFIED' would allow the validation of runtime behavior and complete the investigation cycle for this target. This is preferable over starting the 'Background Jobs' target, which is still in the 'PENDING' state, as finishing an investigation is more valuable for validating the correctness of the repository.",
+    "Planner: selected Business Logic \u2014 The 'Business Logic' target is currently under investigation, which means it is partway through its lifecycle. It is more valuable to continue with this target to reach a validated conclusion rather than starting a new one. Completing investigations already in progress ensures a more efficient workflow and reduces fragmentation of effort.",
+    "Investigator: Business Logic -> STATIC_VERIFIED (2 file(s), LLM-reasoned)",
+    "Planner: selected Business Logic \u2014 The 'Business Logic' target is already in the 'STATIC_VERIFIED' state, meaning it has progressed further in its lifecycle compared to the other targets which are both in the 'PENDING' state. Completing the investigation on the 'Business Logic' by progressing it to runtime verification or completion is more valuable because it leads us to a validated answer faster. Moreover, business logic is often central to the application's functionality, making it a high-priority area to ensure correctness.",
+    "Executor: Business Logic -> RUNTIME_VERIFIED (gateway status=success)",
+    "Planner: selected Business Logic \u2014 The 'Business Logic' target is already in the 'RUNTIME_VERIFIED' state, indicating that it is partway through its investigation process. Prioritizing targets that are further along in their lifecycle allows us to achieve a validated answer more quickly. Completing the investigation of this target will give a clearer understanding of the critical functionality of the application, which is more central and impactful to the overall architecture compared to starting investigations on 'Caching' or 'Background Jobs'.",
+    "Validator: Business Logic -> INSUFFICIENT_EVIDENCE (The static evidence specifies files involved in business logic implementation, but there is no direct runtime verification of these specific functionalities. The runtime evidence only shows a successful execution of `gateway.py`, which does not confirm the behavior or correctness of the claimed business logic in `app/jobs.py` and `app/services/task_service.py`. The lack of direct runtime verification for these critical functionalities results in insufficient evidence for validation.)",
+    "Planner: selected Caching \u2014 Both targets, Caching and Background Jobs, are currently in the PENDING state, which means neither has begun the investigation process. Given the FastAPI framework and considering architectural importance, Caching typically plays a significant role in optimizing performance, reducing load times, and managing resource utilization efficiently. Efficient caching can have a more immediate impact on the overall performance and responsiveness of the application, especially under load. Hence, it is sensible to prioritize investigating this aspect first before background processing tasks.",
+    "Investigator: Caching -> STATIC_VERIFIED (4 file(s), LLM-reasoned)",
+    "Planner: selected Caching \u2014 The 'Caching' target is already in the STATIC_VERIFIED state, indicating that it has undergone static verification and is yet to be runtime verified. Advancing this target to completion will quickly provide a validated outcome. On the other hand, 'Background Jobs' is still in the PENDING state and hasn't been started. It is more efficient to focus on completing the investigation on Caching rather than starting a new investigation.",
     "Executor: Caching -> RUNTIME_VERIFIED (gateway status=success)",
-    "Planner: selected Caching \u2014 The 'Caching' target is in the RUNTIME_VERIFIED state, indicating that it is partway through the investigation process. Prioritizing this target allows us to potentially reach a validated conclusion more quickly. On the other hand, 'Background Jobs' is still in the PENDING state with no evidence gathered yet. Completing ongoing investigations before starting new ones helps in systematically securing and understanding crucial aspects of the system.",
-    "Validator: Caching -> INSUFFICIENT_EVIDENCE (The static evidence provides files related to caching but lacks explicit confirmation of whether the caching mechanism works as described, as the runtime observation that succeeded does not explicitly mention interacting with the caching system. Additionally, the runtime evidence only indicates that 'gateway.py' executed successfully without any direct verification of caching functionality, thus creating a disconnect between static claims and runtime verification.)",
+    "Planner: selected Caching \u2014 The 'Caching' target is already partway through its lifecycle as it is in the RUNTIME_VERIFIED state, meaning it has some runtime evidence gathered. Completing its investigation will likely provide a validated answer more quickly than starting from scratch with the 'Background Jobs' target. Focusing on finishing what has been started maximizes the efficiency of the investigation process.",
+    "Validator: Caching -> INSUFFICIENT_EVIDENCE (The static evidence suggests the implementation of a caching mechanism in several modules, but there is no runtime evidence specifically confirming that the caching functionality was tested and worked as expected during execution. The successful execution of 'gateway.py' does not directly verify the caching functionality, as there is no indication that the cache was utilized or tested during this runtime process. Therefore, there is a lack of runtime verification for the specific caching behavior claimed in the static evidence.)",
     "Planner: selected Background Jobs (only open target, skipped LLM call)",
-    "Investigator: Background Jobs -> no static evidence found",
+    "Investigator: Background Jobs -> STATIC_VERIFIED (1 file(s), LLM-reasoned)",
     "Planner: selected Background Jobs (only open target, skipped LLM call)",
-    "Investigator: Background Jobs -> no static evidence found",
+    "Executor: Background Jobs -> RUNTIME_VERIFIED (gateway status=success)",
     "Planner: selected Background Jobs (only open target, skipped LLM call)",
-    "Investigator: Background Jobs -> no static evidence found",
-    "Validator: Background Jobs -> INSUFFICIENT_EVIDENCE (duplicate investigation limit reached)",
-    "Executor: container 'raven-test-repo-97bad2dc' stopped",
-    "Executor: image 'raven-test-repo-97bad2dc' removed"
+    "Validator: Background Jobs -> INSUFFICIENT_EVIDENCE (The static evidence provided indicates the existence of 'app/jobs.py' which is claimed to manage background jobs. However, there is no runtime evidence directly linked to executing or verifying 'app/jobs.py'. The runtime evidence only shows that 'gateway.py' executed successfully with no explicit connection to the background jobs functionality. Thus, the static and runtime evidence do not align on the specific target of managing background jobs through 'app/jobs.py', leading to insufficient evidence to validate the claim.)",
+    "Executor: container 'raven-test-repo-b3d14693' stopped",
+    "Executor: image 'raven-test-repo-b3d14693' removed"
   ],
   "observations": [
     {
       "category": "Authentication",
-      "claim": "The repository implements authentication using the FastAPI framework, with major features located in the `app/routers/auth.py` and `app/security.py`. Authentication is handled through an OAuth2PasswordBearer scheme, with token management and verification in the `app/dependencies.py`. The `app/security.py` includes password hashing, verification, and JWT token creation and decoding functionality. Additionally, tests are located in `tests/test_auth.py` to verify the authentication endpoints, such as the registration and login functionalities.",
+      "claim": "The repository features a comprehensive authentication system using FastAPI's OAuth2 token-based scheme. It includes user registration and login routes that hash passwords and issue JWT tokens (app/routers/auth.py), token validation for user access (app/dependencies.py), and thorough testing to verify registration and login functionalities (tests/test_auth.py). The gateway uses these routes to demonstrate practical interactions (gateway.py).",
       "evidence": [
         "app/dependencies.py",
         "app/routers/auth.py",
-        "app/security.py",
+        "gateway.py",
         "tests/test_auth.py"
       ],
       "source": "Investigator",
@@ -76,7 +75,7 @@
     },
     {
       "category": "Database",
-      "claim": "The repository includes a SQLite database setup utilizing SQLAlchemy. Key files include: `app/config.py` for database configuration, `app/database.py` for database initialization and session management, `app/dependencies.py` for injecting database sessions, `app/models.py` for ORM models (`User` and `Task`), and `tests/conftest.py` for database testing with a temporary setup. The application initializes the database and manages tasks within `app/main.py` and `app/jobs.py`.",
+      "claim": "The repository uses SQLAlchemy for database management. Configuration is defined in `app/config.py`, with models in `app/models.py`, and database interactions managed via `app/database.py`. The application initializes the database upon starting as defined in `app/main.py`. Testing is supported through a separate in-memory SQLite database as configured in `tests/conftest.py`.",
       "evidence": [
         "app/config.py",
         "app/database.py",
@@ -99,21 +98,18 @@
       "runtime_verified": true
     },
     {
-      "category": "API",
-      "claim": "This repository implements an API using the FastAPI framework with routes for user authentication and task management. It includes authentication mechanisms with OAuth2, route definitions for user-related operations, and a test setup suitable for API testing.",
+      "category": "Business Logic",
+      "claim": "The repository implements business logic related to task management and overdue task sweeping. Business rules such as task limits per user are defined in `app/services/task_service.py`, and the periodic sweeping of overdue tasks is handled in `app/jobs.py`. These functionalities comprise the core business logic of the system.",
       "evidence": [
-        "app/dependencies.py",
-        "app/main.py",
-        "app/routers/auth.py",
-        "app/routers/tasks.py",
-        "tests/conftest.py"
+        "app/jobs.py",
+        "app/services/task_service.py"
       ],
       "source": "Investigator",
       "runtime_verified": false
     },
     {
-      "category": "API",
-      "claim": "Runtime verification for 'API': gateway.py returned status=success",
+      "category": "Business Logic",
+      "claim": "Runtime verification for 'Business Logic': gateway.py returned status=success",
       "evidence": [
         "gateway.py --input sample_input.json (status=success)"
       ],
@@ -122,12 +118,11 @@
     },
     {
       "category": "Caching",
-      "claim": "The repository implements a caching system in 'app/cache.py', utilizing a dictionary-based cache with TTL support, configured in 'app/config.py'. The 'app/services/task_service.py' applies caching to task operations, with cache invalidation handled in task creation. Tests in 'tests/conftest.py' and 'tests/test_tasks.py' validate the caching behavior and functionality.",
+      "claim": "The repository implements a caching mechanism in the app/cache.py module, which provides functions to get or set cached data and invalidate cache entries. Caching is further configured in app/config.py with a TTL setting, and utilized in app/services/task_service.py for caching task data. Cache invalidation is tested in tests/test_tasks.py.",
       "evidence": [
         "app/cache.py",
         "app/config.py",
         "app/services/task_service.py",
-        "tests/conftest.py",
         "tests/test_tasks.py"
       ],
       "source": "Investigator",
@@ -136,6 +131,24 @@
     {
       "category": "Caching",
       "claim": "Runtime verification for 'Caching': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Background Jobs",
+      "claim": "The repository manages background jobs through the `app/jobs.py` file, which defines functions for continuously and periodically sweeping overdue tasks from the database as a background job.",
+      "evidence": [
+        "app/jobs.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Background Jobs",
+      "claim": "Runtime verification for 'Background Jobs': gateway.py returned status=success",
       "evidence": [
         "gateway.py --input sample_input.json (status=success)"
       ],

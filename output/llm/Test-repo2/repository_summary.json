@@ -8,13 +8,13 @@
     {
       "name": "Authentication",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 3,
+      "static_evidence_count": 5,
       "runtime_evidence_count": 1
     },
     {
       "name": "Authorization",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 4,
+      "static_evidence_count": 3,
       "runtime_evidence_count": 1
     },
     {
@@ -26,20 +26,20 @@
     {
       "name": "API",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 5,
+      "static_evidence_count": 7,
       "runtime_evidence_count": 1
     },
     {
       "name": "Caching",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 4,
+      "static_evidence_count": 2,
       "runtime_evidence_count": 1
     },
     {
       "name": "Background Jobs",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 0,
-      "runtime_evidence_count": 0
+      "static_evidence_count": 2,
+      "runtime_evidence_count": 1
     },
     {
       "name": "Rate Limiting",
@@ -50,8 +50,8 @@
     {
       "name": "Business Logic",
       "state": "INSUFFICIENT_EVIDENCE",
-      "static_evidence_count": 0,
-      "runtime_evidence_count": 0
+      "static_evidence_count": 4,
+      "runtime_evidence_count": 1
     }
   ]
 }

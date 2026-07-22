@@ -14,10 +14,12 @@ Test suite passed: True
     - gateway.py --input sample_input.json (status=success)
 - **Caching**: 1 runtime entr(y/ies)
     - gateway.py --input sample_input.json (status=success)
-- **Background Jobs**: 0 runtime entr(y/ies)
+- **Background Jobs**: 1 runtime entr(y/ies)
+    - gateway.py --input sample_input.json (status=success)
 - **Rate Limiting**: 1 runtime entr(y/ies)
     - gateway.py --input sample_input.json (status=success)
-- **Business Logic**: 0 runtime entr(y/ies)
+- **Business Logic**: 1 runtime entr(y/ies)
+    - gateway.py --input sample_input.json (status=success)
 
 ## Test Output
 
@@ -40,6 +42,6 @@ tests/test_tasks.py .......                                              [100%]
     from starlette.testclient import TestClient as TestClient  # noqa
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-======================== 19 passed, 1 warning in 4.94s =========================
+======================== 19 passed, 1 warning in 4.33s =========================
 
 ```
