@@ -10,10 +10,12 @@ from tools.search import grep
 
 CATEGORY_KEYWORDS: dict[str, tuple[str, ...]] = {
     "authentication": ("auth", "jwt", "password", "login", "token"),
+    "authorization": ("permission", "authorize", "forbidden", "role", "rbac"),
     "database": ("database", "sqlalchemy", "session", "sqlite", "query", "model"),
     "api": ("router", "route", "endpoint", "fastapi", "apirouter"),
-    "caching": ("cache", "ttl", "lru"),
-    "background jobs": ("background", "sweep", "asyncio", "scheduler", "interval", "job"),
+    "caching": ("cache", "lru"),  # "ttl" was dropped: it's a substring of "throttle"/"settle"/"bottle"
+    "background jobs": ("background", "sweep", "asyncio", "scheduler", "interval", "job", "queue", "consumer"),
+    "rate limiting": ("rate_limit", "ratelimit", "throttle", "bucket"),
     "business logic": ("service", "business", "rule", "limit", "policy"),
 }
 

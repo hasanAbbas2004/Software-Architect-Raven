@@ -16,6 +16,12 @@ def repo(tmp_path: Path) -> Path:
     (tmp_path / "app" / "auth.py").write_text(
         "import jwt\n\ndef login(username, password):\n    return create_jwt_token(username)\n"
     )
+    (tmp_path / "app" / "dependencies.py").write_text(
+        "def require_owner_or_admin(user):\n    if user.role != 'admin':\n        raise Forbidden()\n"
+    )
+    (tmp_path / "app" / "rate_limit.py").write_text(
+        "def enforce(key):\n    bucket = get_bucket(key)\n    if bucket.exceeds_throttle():\n        raise RateLimitExceededError()\n"
+    )
     return tmp_path
 
 
@@ -62,6 +68,28 @@ def test_investigate_leaves_target_open_when_no_evidence_found(repo: Path):
     assert target.state == TargetState.INVESTIGATING
     assert target.static_evidence == []
     assert len(state.observation_store) == 0
+
+
+def test_investigate_finds_authorization_evidence(repo: Path):
+    target = InvestigationTarget(name="Authorization")
+    state = _state(repo, target)
+    investigator = Investigator(repo)
+
+    investigator.investigate(state, target)
+
+    assert target.state == TargetState.STATIC_VERIFIED
+    assert target.static_evidence == ["app/dependencies.py"]
+
+
+def test_investigate_finds_rate_limiting_evidence(repo: Path):
+    target = InvestigationTarget(name="Rate Limiting")
+    state = _state(repo, target)
+    investigator = Investigator(repo)
+
+    investigator.investigate(state, target)
+
+    assert target.state == TargetState.STATIC_VERIFIED
+    assert target.static_evidence == ["app/rate_limit.py"]
 
 
 def test_investigate_skips_already_resolved_targets(repo: Path):

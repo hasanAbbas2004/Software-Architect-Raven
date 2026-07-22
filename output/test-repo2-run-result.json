@@ -1,0 +1,405 @@
+{
+  "generated_at": "2026-07-22T00:11:19.560088+00:00",
+  "raven_phase": "Phase 4 \u2014 Validation Loop (full autonomous run)",
+  "application": "BoardFlow",
+  "target_repository": {
+    "path": "C:\\Users\\AA\\Documents\\GitHub\\Test-repo2",
+    "name": "Test-repo2",
+    "framework": "fastapi",
+    "contract_valid": true
+  },
+  "runtime_config": {
+    "docker_reference": "Dockerfile",
+    "build_timeout_seconds": 300,
+    "call_timeout_seconds": 60,
+    "session_timeout_seconds": 600,
+    "health_endpoint": "/health",
+    "health_port": 8000,
+    "test_command": "pytest",
+    "network_required": false
+  },
+  "investigation_signal": "COMPLETE",
+  "investigation_targets": [
+    {
+      "name": "Authentication",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/schemas.py",
+        "app/security.py",
+        "gateway.py",
+        "tests/test_auth.py",
+        "tests/test_projects.py",
+        "tests/test_rate_limit.py",
+        "tests/test_tasks.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Authorization",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/dependencies.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "tests/conftest.py",
+        "tests/test_auth.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Database",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/config.py",
+        "app/database.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/routers/notifications.py",
+        "app/routers/projects.py",
+        "app/routers/tasks.py",
+        "app/schemas.py",
+        "app/services/project_service.py",
+        "app/services/task_service.py",
+        "tests/conftest.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "API",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/dependencies.py",
+        "app/main.py",
+        "app/routers/auth.py",
+        "app/routers/notifications.py",
+        "app/routers/projects.py",
+        "app/routers/tasks.py",
+        "tests/conftest.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Caching",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/cache.py",
+        "app/config.py",
+        "app/services/task_service.py",
+        "tests/conftest.py",
+        "tests/test_tasks.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Background Jobs",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/main.py",
+        "app/notifications.py",
+        "gateway.py",
+        "tests/test_tasks.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Rate Limiting",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/rate_limit.py",
+        "app/routers/tasks.py",
+        "tests/conftest.py",
+        "tests/test_rate_limit.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Business Logic",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/rate_limit.py",
+        "app/routers/projects.py",
+        "app/routers/tasks.py",
+        "app/services/task_service.py",
+        "tests/conftest.py",
+        "tests/test_rate_limit.py",
+        "tests/test_tasks.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "category": "Authentication",
+      "claim": "Static evidence for 'Authentication' found in 12 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/schemas.py",
+        "app/security.py",
+        "gateway.py",
+        "tests/test_auth.py",
+        "tests/test_projects.py",
+        "tests/test_rate_limit.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Authentication",
+      "claim": "Runtime verification for 'Authentication': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Authorization",
+      "claim": "Static evidence for 'Authorization' found in 5 file(s)",
+      "evidence": [
+        "app/dependencies.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "tests/conftest.py",
+        "tests/test_auth.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Authorization",
+      "claim": "Runtime verification for 'Authorization': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Database",
+      "claim": "Static evidence for 'Database' found in 13 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/database.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/routers/notifications.py",
+        "app/routers/projects.py",
+        "app/routers/tasks.py",
+        "app/schemas.py",
+        "app/services/project_service.py",
+        "app/services/task_service.py",
+        "tests/conftest.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Database",
+      "claim": "Runtime verification for 'Database': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "API",
+      "claim": "Static evidence for 'API' found in 7 file(s)",
+      "evidence": [
+        "app/dependencies.py",
+        "app/main.py",
+        "app/routers/auth.py",
+        "app/routers/notifications.py",
+        "app/routers/projects.py",
+        "app/routers/tasks.py",
+        "tests/conftest.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "API",
+      "claim": "Runtime verification for 'API': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Caching",
+      "claim": "Static evidence for 'Caching' found in 5 file(s)",
+      "evidence": [
+        "app/cache.py",
+        "app/config.py",
+        "app/services/task_service.py",
+        "tests/conftest.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Caching",
+      "claim": "Runtime verification for 'Caching': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Background Jobs",
+      "claim": "Static evidence for 'Background Jobs' found in 4 file(s)",
+      "evidence": [
+        "app/main.py",
+        "app/notifications.py",
+        "gateway.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Background Jobs",
+      "claim": "Runtime verification for 'Background Jobs': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Rate Limiting",
+      "claim": "Static evidence for 'Rate Limiting' found in 6 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/rate_limit.py",
+        "app/routers/tasks.py",
+        "tests/conftest.py",
+        "tests/test_rate_limit.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Rate Limiting",
+      "claim": "Runtime verification for 'Rate Limiting': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Business Logic",
+      "claim": "Static evidence for 'Business Logic' found in 9 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/rate_limit.py",
+        "app/routers/projects.py",
+        "app/routers/tasks.py",
+        "app/services/task_service.py",
+        "tests/conftest.py",
+        "tests/test_rate_limit.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Business Logic",
+      "claim": "Runtime verification for 'Business Logic': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    }
+  ],
+  "runtime_metadata": {
+    "container_name": "raven-test-repo2-b096989d",
+    "tests_passed": true,
+    "test_output": "============================= test session starts ==============================\nplatform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0\nrootdir: /app\nconfigfile: pyproject.toml\nplugins: anyio-4.14.2\ncollected 19 items\n\ntests/test_auth.py ....                                                  [ 21%]\ntests/test_projects.py ......                                            [ 52%]\ntests/test_rate_limit.py ..                                              [ 63%]\ntests/test_tasks.py .......                                              [100%]\n\n=============================== warnings summary ===============================\n../usr/local/lib/python3.11/site-packages/fastapi/testclient.py:1\n  /usr/local/lib/python3.11/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 19 passed, 1 warning in 5.06s =========================\n"
+  },
+  "container_logs_tail": "127.0.0.1:47954 - \"POST /projects/3/members HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:47960 - \"POST /projects/3/tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:47962 - \"GET /projects/3/tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:47966 - \"POST /projects/3/tasks/3/complete HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:47968 - \"GET /notifications HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:47976 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:47992 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:47994 - \"POST /projects HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48006 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48020 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48028 - \"POST /projects/4/members HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48036 - \"POST /projects/4/tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48038 - \"GET /projects/4/tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48052 - \"POST /projects/4/tasks/4/complete HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48060 - \"GET /notifications HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48070 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48078 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48082 - \"POST /projects HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48084 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48100 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48112 - \"POST /projects/5/members HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48122 - \"POST /projects/5/tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48138 - \"GET /projects/5/tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48142 - \"POST /projects/5/tasks/5/complete HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48158 - \"GET /notifications HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48166 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48182 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48186 - \"POST /projects HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48188 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48202 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48214 - \"POST /projects/6/members HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48220 - \"POST /projects/6/tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48234 - \"GET /projects/6/tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48236 - \"POST /projects/6/tasks/6/complete HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48238 - \"GET /notifications HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48250 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48264 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48272 - \"POST /projects HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48286 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48292 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48300 - \"POST /projects/7/members HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48302 - \"POST /projects/7/tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48314 - \"GET /projects/7/tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48318 - \"POST /projects/7/tasks/7/complete HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48326 - \"GET /notifications HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48332 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48334 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48350 - \"POST /projects HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48364 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48378 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48382 - \"POST /projects/8/members HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48390 - \"POST /projects/8/tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:48396 - \"GET /projects/8/tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48400 - \"POST /projects/8/tasks/8/complete HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:48704 - \"GET /notifications HTTP/1.1\" 200 OK\nINFO:     Started server process [1]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)\n",
+  "execution_logs": [
+    "Repository validated: C:\\Users\\AA\\Documents\\GitHub\\Test-repo2",
+    "Framework detected: fastapi",
+    "Docker detected: True",
+    "Investigation targets loaded: 8",
+    "Repository state initialized",
+    "Investigator: Authentication -> STATIC_VERIFIED (12 file(s))",
+    "Executor: container 'raven-test-repo2-b096989d' started and healthy",
+    "Executor: test suite passed",
+    "Executor: Authentication -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Authentication -> VALIDATED",
+    "Investigator: Authorization -> STATIC_VERIFIED (5 file(s))",
+    "Executor: Authorization -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Authorization -> VALIDATED",
+    "Investigator: Database -> STATIC_VERIFIED (13 file(s))",
+    "Executor: Database -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Database -> VALIDATED",
+    "Investigator: API -> STATIC_VERIFIED (7 file(s))",
+    "Executor: API -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: API -> VALIDATED",
+    "Investigator: Caching -> STATIC_VERIFIED (5 file(s))",
+    "Executor: Caching -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Caching -> VALIDATED",
+    "Investigator: Background Jobs -> STATIC_VERIFIED (4 file(s))",
+    "Executor: Background Jobs -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Background Jobs -> VALIDATED",
+    "Investigator: Rate Limiting -> STATIC_VERIFIED (6 file(s))",
+    "Executor: Rate Limiting -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Rate Limiting -> VALIDATED",
+    "Investigator: Business Logic -> STATIC_VERIFIED (9 file(s))",
+    "Executor: Business Logic -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Business Logic -> VALIDATED",
+    "Executor: container 'raven-test-repo2-b096989d' stopped",
+    "Executor: image 'raven-test-repo2-b096989d' removed"
+  ]
+}

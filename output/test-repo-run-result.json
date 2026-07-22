@@ -1,0 +1,297 @@
+{
+  "generated_at": "2026-07-22T00:10:52.708914+00:00",
+  "raven_phase": "Phase 4 \u2014 Validation Loop (full autonomous run)",
+  "application": "TaskFlow",
+  "target_repository": {
+    "path": "C:\\Users\\AA\\Documents\\GitHub\\Test-repo",
+    "name": "Test-repo",
+    "framework": "fastapi",
+    "contract_valid": true
+  },
+  "runtime_config": {
+    "docker_reference": "Dockerfile",
+    "build_timeout_seconds": 300,
+    "call_timeout_seconds": 60,
+    "session_timeout_seconds": 600,
+    "health_endpoint": "/health",
+    "health_port": 8000,
+    "test_command": "pytest",
+    "network_required": false
+  },
+  "investigation_signal": "COMPLETE",
+  "investigation_targets": [
+    {
+      "name": "Authentication",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/schemas.py",
+        "app/security.py",
+        "gateway.py",
+        "tests/test_auth.py",
+        "tests/test_tasks.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Database",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/config.py",
+        "app/database.py",
+        "app/dependencies.py",
+        "app/jobs.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/routers/tasks.py",
+        "app/schemas.py",
+        "app/services/task_service.py",
+        "tests/conftest.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "API",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/dependencies.py",
+        "app/main.py",
+        "app/routers/auth.py",
+        "app/routers/tasks.py",
+        "tests/conftest.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Caching",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/cache.py",
+        "app/config.py",
+        "app/services/task_service.py",
+        "tests/conftest.py",
+        "tests/test_tasks.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Background Jobs",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/config.py",
+        "app/jobs.py",
+        "app/main.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    },
+    {
+      "name": "Business Logic",
+      "state": "VALIDATED",
+      "requires_runtime_verification": null,
+      "static_evidence": [
+        "app/routers/tasks.py",
+        "app/services/task_service.py",
+        "tests/test_tasks.py"
+      ],
+      "runtime_evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "category": "Authentication",
+      "claim": "Static evidence for 'Authentication' found in 10 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/schemas.py",
+        "app/security.py",
+        "gateway.py",
+        "tests/test_auth.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Authentication",
+      "claim": "Runtime verification for 'Authentication': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Database",
+      "claim": "Static evidence for 'Database' found in 11 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/database.py",
+        "app/dependencies.py",
+        "app/jobs.py",
+        "app/main.py",
+        "app/models.py",
+        "app/routers/auth.py",
+        "app/routers/tasks.py",
+        "app/schemas.py",
+        "app/services/task_service.py",
+        "tests/conftest.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Database",
+      "claim": "Runtime verification for 'Database': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "API",
+      "claim": "Static evidence for 'API' found in 5 file(s)",
+      "evidence": [
+        "app/dependencies.py",
+        "app/main.py",
+        "app/routers/auth.py",
+        "app/routers/tasks.py",
+        "tests/conftest.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "API",
+      "claim": "Runtime verification for 'API': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Caching",
+      "claim": "Static evidence for 'Caching' found in 5 file(s)",
+      "evidence": [
+        "app/cache.py",
+        "app/config.py",
+        "app/services/task_service.py",
+        "tests/conftest.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Caching",
+      "claim": "Runtime verification for 'Caching': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Background Jobs",
+      "claim": "Static evidence for 'Background Jobs' found in 3 file(s)",
+      "evidence": [
+        "app/config.py",
+        "app/jobs.py",
+        "app/main.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Background Jobs",
+      "claim": "Runtime verification for 'Background Jobs': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    },
+    {
+      "category": "Business Logic",
+      "claim": "Static evidence for 'Business Logic' found in 3 file(s)",
+      "evidence": [
+        "app/routers/tasks.py",
+        "app/services/task_service.py",
+        "tests/test_tasks.py"
+      ],
+      "source": "Investigator",
+      "runtime_verified": false
+    },
+    {
+      "category": "Business Logic",
+      "claim": "Runtime verification for 'Business Logic': gateway.py returned status=success",
+      "evidence": [
+        "gateway.py --input sample_input.json (status=success)"
+      ],
+      "source": "Executor",
+      "runtime_verified": true
+    }
+  ],
+  "runtime_metadata": {
+    "container_name": "raven-test-repo-cdf46583",
+    "tests_passed": true,
+    "test_output": "============================= test session starts ==============================\nplatform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0\nrootdir: /app\nconfigfile: pyproject.toml\nplugins: anyio-4.14.2\ncollected 8 items\n\ntests/test_auth.py ....                                                  [ 50%]\ntests/test_tasks.py ....                                                 [100%]\n\n=============================== warnings summary ===============================\n../usr/local/lib/python3.11/site-packages/fastapi/testclient.py:1\n  /usr/local/lib/python3.11/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n========================= 8 passed, 1 warning in 1.27s =========================\n"
+  },
+  "container_logs_tail": "INFO:     127.0.0.1:33698 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:33708 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:33710 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:33714 - \"POST /tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:33726 - \"GET /tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:33732 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53756 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53764 - \"POST /tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53776 - \"GET /tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53792 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53808 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53812 - \"POST /tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53828 - \"GET /tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53842 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53856 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53870 - \"POST /tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53872 - \"GET /tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53878 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53882 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53890 - \"POST /tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53900 - \"GET /tasks HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53906 - \"POST /auth/register HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53916 - \"POST /auth/login HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:53920 - \"POST /tasks HTTP/1.1\" 201 Created\nINFO:     127.0.0.1:53922 - \"GET /tasks HTTP/1.1\" 200 OK\nINFO:     Started server process [1]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)\n",
+  "execution_logs": [
+    "Repository validated: C:\\Users\\AA\\Documents\\GitHub\\Test-repo",
+    "Framework detected: fastapi",
+    "Docker detected: True",
+    "Investigation targets loaded: 6",
+    "Repository state initialized",
+    "Investigator: Authentication -> STATIC_VERIFIED (10 file(s))",
+    "Executor: container 'raven-test-repo-cdf46583' started and healthy",
+    "Executor: test suite passed",
+    "Executor: Authentication -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Authentication -> VALIDATED",
+    "Investigator: Database -> STATIC_VERIFIED (11 file(s))",
+    "Executor: Database -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Database -> VALIDATED",
+    "Investigator: API -> STATIC_VERIFIED (5 file(s))",
+    "Executor: API -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: API -> VALIDATED",
+    "Investigator: Caching -> STATIC_VERIFIED (5 file(s))",
+    "Executor: Caching -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Caching -> VALIDATED",
+    "Investigator: Background Jobs -> STATIC_VERIFIED (3 file(s))",
+    "Executor: Background Jobs -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Background Jobs -> VALIDATED",
+    "Investigator: Business Logic -> STATIC_VERIFIED (3 file(s))",
+    "Executor: Business Logic -> RUNTIME_VERIFIED (gateway status=success)",
+    "Validator: Business Logic -> VALIDATED",
+    "Executor: container 'raven-test-repo-cdf46583' stopped",
+    "Executor: image 'raven-test-repo-cdf46583' removed"
+  ]
+}

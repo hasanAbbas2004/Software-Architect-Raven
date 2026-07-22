@@ -34,9 +34,9 @@ def test_next_task_returns_first_unresolved_target():
     assert target.name == "Authentication"
 
 
-def test_next_task_skips_already_resolved_targets():
+def test_next_task_skips_terminal_targets():
     state = _state(
-        InvestigationTarget(name="Authentication", state=TargetState.STATIC_VERIFIED),
+        InvestigationTarget(name="Authentication", state=TargetState.VALIDATED),
         InvestigationTarget(name="Database"),
     )
     planner = Planner()
@@ -45,6 +45,21 @@ def test_next_task_skips_already_resolved_targets():
 
     assert target is not None
     assert target.name == "Database"
+
+
+def test_next_task_returns_non_terminal_targets_regardless_of_stage():
+    for state_value in (
+        TargetState.PENDING,
+        TargetState.INVESTIGATING,
+        TargetState.STATIC_VERIFIED,
+        TargetState.RUNTIME_VERIFIED,
+    ):
+        state = _state(InvestigationTarget(name="Authentication", state=state_value))
+        planner = Planner()
+
+        target = planner.next_task(state)
+
+        assert target is not None, f"expected a target to be returned for state {state_value}"
 
 
 def test_next_task_returns_none_when_all_targets_resolved():
